@@ -1,7 +1,7 @@
 #include "Rana.h"
 
 Rana::Rana(int x, int y,int vidas,int visible, int salto):Animal(x,y,vidas,visible){
-	_salto=salto;
+	_salto=salto; // QUE ES ESTO??
 }
 char Rana::getTipo(){
 	return 'R';
