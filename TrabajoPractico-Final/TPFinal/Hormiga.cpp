@@ -2,6 +2,7 @@
 
 Hormiga::Hormiga(int x, int y,int vidas,int visible, int clase):Animal(x,y,vidas,visible){
 	_clase=clase;
+	//PREGUNTAR AL PROFE QUE HACE ESTO;
 }
 char Hormiga::getTipo(){
 	return 'H';

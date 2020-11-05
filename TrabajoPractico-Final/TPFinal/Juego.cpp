@@ -3,14 +3,20 @@
 Juego::Juego(){
 	for(int i=0;i<TOPE;i++) 
 		vec[i]=NULL;
+	_depredador= NULL;
 }
 Juego::~Juego(){
-	// Completar
+	for(int i = 0; i<TOPE; i++){
+		if(vec[i]!=NULL){
+			// COMPLETAR
+		}
+	}
 }
 void Juego::init(){
 	_tecla=' ';
 	_gameOver=false;
 	srand(time(0));
+	_vivos=0;
 	_presa=0;
 	_tiempo=TIEMPOMAX;
 	_intentos=INTENTOS;
@@ -18,7 +24,7 @@ void Juego::init(){
 	_visibles=0;
 	_dificultad=0;
 	int top=1;
-	int i=0;
+	//int i=0;
 
 	gotoxy(10,3);
 	while(_dificultad<1||_dificultad>3){
@@ -27,14 +33,22 @@ void Juego::init(){
 	}
 	_depredador=new Rana(60, 3, VIDAS, 1, 1);
 	
-	vec[i]=new Hormiga((top++)*7, 12, VIDAS, 0, 1);
-	// Completar
+	switch(_dificultad){
+		case 1:
+			int max = 6;
+			for(int i= 0; i<max; i++){
+				if(vec[i]==NULL){
+					vec[i]=new Hormiga((top++)*7, 12, VIDAS, 1, 1);
+					_vivos++;
+				}
+			}
+			break;
+	}
 	clrscr();
 }
 void Juego::update(){
 int hor=rand()%(TOPE);
-	// Completar
-
+vec[3]->setVisible(0);
 	
 }
 void Juego::play(){
@@ -77,7 +91,11 @@ bool Juego::gameOver(){
 void Juego::draw(){
 	_depredador->dibujar();
 	for(int i=0;i<TOPE;i++){
-	// Completar
+		if(vec[i]!=NULL){
+			if(vec[i]->estaVivo() && vec[i]->getVisible()){
+				vec[i]->dibujar();
+			}
+		}
 	}
 	gotoxy(50,1);cout<<"Quedan "<<_vivos<<" Animales";
 	gotoxy(30,1);cout<<"Visibles "<<_visibles;
