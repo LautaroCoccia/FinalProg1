@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{7B206236-4E88-427A-B464-FD9163C08225}</ProjectGuid>
-    <RootNamespace>EjercicioFinal</RootNamespace>
+    <ProjectGuid>{D84E8094-3029-44E1-B215-D84AE93EFACA}</ProjectGuid>
+    <RootNamespace>TPFinal</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -60,6 +60,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animal.cpp" />
+    <ClCompile Include="Grillo.cpp" />
+    <ClCompile Include="Hormiga.cpp" />
+    <ClCompile Include="Juego.cpp" />
+    <ClCompile Include="Libreria.cpp" />
+    <ClCompile Include="Rana.cpp" />
+    <ClCompile Include="TPFinal.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Animal.h" />
+    <ClInclude Include="Grillo.h" />
+    <ClInclude Include="Hormiga.h" />
+    <ClInclude Include="Juego.h" />
+    <ClInclude Include="Libreria.h" />
+    <ClInclude Include="Rana.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
