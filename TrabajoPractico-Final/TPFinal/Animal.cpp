@@ -23,7 +23,7 @@ void Animal::setVidas(int vidas){
 }
 void Animal::setVisible(int visible){
 	if(_vidas>0)
-			_visible=visible;
-		else
-			_visible=-1;
+		_visible=visible;
+	else
+		_visible=-1; // PORQUE -1? NO ENTENDEMOS
 }

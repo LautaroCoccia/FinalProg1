@@ -31,25 +31,20 @@ void Juego::init(){
 		cout<<"ingrese dificultad:\n\t\t1:principiante\n\t\t2:intermedio\n\t\t3:avanzado";
 		cin>>_dificultad;
 	}
-	_depredador=new Rana(60, 3, VIDAS, 1, 1);
+	_depredador=new Rana(60, 3, VIDAS_R, 1, 1);
 	
 	switch(_dificultad){
 		case 1:
 			int max = 6;
 			for(int i= 0; i<max; i++){
 				if(vec[i]==NULL){
-					vec[i]=new Hormiga((top++)*7, 12, VIDAS, 1, 1);
+					vec[i]=new Hormiga((top++)*7, 12, VIDAS_H, 1, 1);
 					_vivos++;
 				}
 			}
 			break;
 	}
 	clrscr();
-}
-void Juego::update(){
-int hor=rand()%(TOPE);
-vec[3]->setVisible(0);
-	
 }
 void Juego::play(){
 	init();
@@ -63,6 +58,24 @@ void Juego::play(){
 		miliSleep(200);
 	}
 	result();
+}
+void Juego::update(){
+int hor=rand()%(TOPE);
+	
+	
+	if(vec[_presa]!=NULL){
+		_depredador->Atacar(vec[_presa]);
+		vec[_presa]->borrar();
+		if(vec[_presa]->estaVivo()==false && vec[_presa]->getVisible()==1){
+			_vivos--;
+			vec[_presa]->setVisible(0);
+		}
+	}
+	
+	gotoxy(10,10);
+	cout<<_presa;
+
+	
 }
 void Juego::result(){
 	gotoxy(10,22);
@@ -92,7 +105,7 @@ void Juego::draw(){
 	_depredador->dibujar();
 	for(int i=0;i<TOPE;i++){
 		if(vec[i]!=NULL){
-			if(vec[i]->estaVivo() && vec[i]->getVisible()){
+			if(vec[i]->estaVivo() && vec[i]->getVisible()==1){
 				vec[i]->dibujar();
 			}
 		}

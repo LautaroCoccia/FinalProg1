@@ -1,9 +1,13 @@
 #ifndef ANIMAL_H
 #define ANIMAL_H
+
 #include <iostream>
 #include "libreria.h"
 using namespace std;
-#define VIDAS 3
+
+#define VIDAS_R 1
+#define VIDAS_H 3
+#define VIDAS_G 7
 
 class Animal{
 protected:

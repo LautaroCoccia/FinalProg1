@@ -24,5 +24,6 @@ void Hormiga::dibujar(){
 	gotoxy(_x,_y);  cout<<"  \O/";	
 	gotoxy(_x,_y+1);cout<<"--O--";
 	gotoxy(_x,_y+2);cout<<".-o-.";
+	gotoxy(_x,_y+4);cout<<_vidas;
 }
 
