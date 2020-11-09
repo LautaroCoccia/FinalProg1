@@ -22,5 +22,4 @@ void Grillo::dibujar(){
 	gotoxy(_x,_y);  cout<<" (,')";
 	gotoxy(_x,_y+1);cout<<"/(  )\\";
 	gotoxy(_x,_y+2);cout<<"  <>";
-	gotoxy(_x,_y+4);cout<<_vidas;
 }

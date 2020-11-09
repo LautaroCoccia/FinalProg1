@@ -15,8 +15,11 @@
 #define MAX_FIL 24
 #define MAX_COL 80
 #define TOPE 10
-#define TIEMPOMAX 3000
+#define TIEMPOMAX 30
 #define INTENTOS 3
+#define NIVEL_A 6
+#define NIVEL_B 8
+#define NIVEL_C 10
 
 using namespace std;
 class Juego{
@@ -27,7 +30,7 @@ class Juego{
 	int _vivos;			// cuantas presas vivas hay
 	int _presa;			// numero de presa a ser atacada
 	int _intentos;		// intentos de atacar
-	int _tiempo;		// tiempo 
+	int _tiempo;		// tiempo
 	int _ultimo;		// ultima presa atacada
 	int _visibles;		// cuantas presas estan visibles
 	int _dificultad;	// nivel del juego
