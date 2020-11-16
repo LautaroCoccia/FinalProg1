@@ -50,7 +50,7 @@ void Juego::init(){
 			max = NIVEL_A;
 			for(int i= 0; i<max; i++){
 				if(vec[i]==NULL){
-					vec[i]=new Hormiga((top++)*7, 12, VIDAS_H, 0, 1);
+					vec[i]=new Hormiga((top++)*7, 12, VIDAS_H, 0, i);
 					_vivos++;
 				}
 			}
@@ -65,18 +65,18 @@ void Juego::init(){
 					int ran=rand()%(2);
 					if(ran==0){
 						if(h>0){
-							vec[i]=new Hormiga((top++)*7, 12, VIDAS_H, 0, 1);
+							vec[i]=new Hormiga((top++)*7, 12, VIDAS_H, 0, i);
 							h--;
 						}else{
-							vec[i]=new Grillo((top++)*7, 12, VIDAS_G, 0);
+							vec[i]=new Grillo((top++)*7, 12, VIDAS_G, 0, i);
 							g--;
 						}
 					}else if(ran==1){
 						if(g>0){
-							vec[i]=new Grillo((top++)*7, 12, VIDAS_G, 0);
+							vec[i]=new Grillo((top++)*7, 12, VIDAS_G, 0, i);
 							g--;
 						}else{
-							vec[i]=new Hormiga((top++)*7, 12, VIDAS_H, 0, 1);
+							vec[i]=new Hormiga((top++)*7, 12, VIDAS_H, 0, i);
 							h--;
 						}
 					}
@@ -94,18 +94,18 @@ void Juego::init(){
 					int ran=rand()%(2);
 					if(ran==0){
 						if(h>0){
-							vec[i]=new Hormiga((top++)*7, 12, VIDAS_H, 0, 1);
+							vec[i]=new Hormiga((top++)*7, 12, VIDAS_H, 0, i);
 							h--;
 						}else{
-							vec[i]=new Grillo((top++)*7, 12, VIDAS_G, 0);
+							vec[i]=new Grillo((top++)*7, 12, VIDAS_G, 0, i);
 							g--;
 						}
 					}else if(ran==1){
 						if(g>0){
-							vec[i]=new Grillo((top++)*7, 12, VIDAS_G, 0);
+							vec[i]=new Grillo((top++)*7, 12, VIDAS_G, 0, i);
 							g--;
 						}else{
-							vec[i]=new Hormiga((top++)*7, 12, VIDAS_H, 0, 1);
+							vec[i]=new Hormiga((top++)*7, 12, VIDAS_H, 0, i);
 							h--;
 						}
 					}
@@ -134,7 +134,7 @@ void Juego::play(){
 
 void Juego::update(){
 int hor=rand()%(TOPE);
-	
+
 	static time_t lastTime = initial_time;
     time_t deltaTime;
     deltaTime = time(NULL) - lastTime;
@@ -142,24 +142,26 @@ int hor=rand()%(TOPE);
     bicho_time += deltaTime;
 	lastTime += deltaTime;
 
-	if(bicho_time>=1){
+	if(bicho_time>=2){
 		if(vec[hor]!=NULL && vec[hor]->getVisible()==0){
 			vec[hor]->setVisible(1);
 			_visibles++;
 			bicho_time = 0;
+			_ultimo=hor;
 		}
 	}
 
 	if(vec[_presa]!=NULL){
 		if(vec[_presa]->estaVivo()==true && vec[_presa]->getVisible()==1){
-			_depredador->Atacar(vec[_presa]);
-			vec[_presa]->borrar();
+			if(_presa==_ultimo){
+				_depredador->Atacar(vec[_presa]);
+				vec[_presa]->borrar();
+			}			
 			if(vec[_presa]->estaVivo()==false){
 				_vivos--;
 			}
 			vec[_presa]->setVisible(0);
 			_visibles--;
-			_ultimo=_presa;
 				if(_intentos>0){
 					_intentos--;
 				}
@@ -183,8 +185,8 @@ void Juego::result(){
 	if(_gameOver){
 		if(_vivos>0)
 			cout<<"Perdiste !";
-		else 
-			cout<<"Ganaste !";	
+		else
+			cout<<"Ganaste !";
 		gotoxy(30,25);
 		cout<<"game over  ";
 		cin.get();
@@ -193,7 +195,7 @@ void Juego::result(){
 
 void Juego::input(){
 	if(_tecla=getKey(false)){
-		if(_tecla>47&&_tecla<57)
+		if(_tecla>47&&_tecla<58)
 			_presa=_tecla-48;
 		if(_tecla==KEY_ESC)
 			_gameOver=true;
@@ -202,7 +204,7 @@ void Juego::input(){
 }
 
 bool Juego::gameOver(){
-	if(_vivos<=0||_visibles>=_vivos||_tiempo<=0)
+	if(_vivos<=0||(_visibles>=_vivos && _vivos>1)||_tiempo<=0)
 		_gameOver=true;
 
 	return _gameOver;
@@ -217,11 +219,13 @@ void Juego::draw(){
 			}
 		}
 	}
-	gotoxy(50,1);cout<<"Quedan "<<_vivos<<" Animales";
-	gotoxy(30,1);cout<<"Visibles "<<_visibles;
+	gotoxy(10,1);cout<<"Tiempo "<<_tiempo<<" ";
 
-	gotoxy(10,1);cout<<"Tiempo "<<_tiempo<<"   ";
-	
+	gotoxy(25,1);cout<<"Visibles "<<_visibles;
 
-	gotoxy(75,1);cout<<"INTENTOS "<<_intentos;
+	gotoxy(42,1);cout<<"Quedan "<<_vivos<<" Animales";
+
+	gotoxy(65,1);cout<<"INTENTOS "<<_intentos;
+
+	gotoxy(10,5);cout<<"COMELO! "<<_ultimo;
 }

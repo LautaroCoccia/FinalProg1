@@ -15,7 +15,7 @@
 #define MAX_FIL 24
 #define MAX_COL 80
 #define TOPE 10
-#define TIEMPOMAX 30
+#define TIEMPOMAX 80
 #define INTENTOS 3
 #define NIVEL_A 6
 #define NIVEL_B 8
