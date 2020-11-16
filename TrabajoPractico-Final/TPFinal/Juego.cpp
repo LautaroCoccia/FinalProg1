@@ -26,10 +26,12 @@ void Juego::init(){
 	_vivos=0;
 	_presa=0;
 	_tiempo=TIEMPOMAX;
-	_intentos=INTENTOS;
+	_intentos= 0;
 	_ultimo=0;
 	_visibles=0;
 	_dificultad=0;
+
+	_tiempoPerdido = 0;
 	int top=1;
 	int max = 0;
 	int h = 0;
@@ -44,6 +46,7 @@ void Juego::init(){
 
 	switch(_dificultad){
 		case 1:
+			_tiempoPerdido = 1;
 			max = NIVEL_A;
 			for(int i= 0; i<max; i++){
 				if(vec[i]==NULL){
@@ -53,6 +56,7 @@ void Juego::init(){
 			}
 			break;
 		case 2:
+			_tiempoPerdido = 1.5f;
 			max = NIVEL_B;
 			h = 4;
 			g = 3;
@@ -81,6 +85,7 @@ void Juego::init(){
 			}
 			break;
 		case 3:
+			_tiempoPerdido = 2;
 			max = NIVEL_C;
 			h = 1+rand()%(9-1);
 			g = 10 - h;
@@ -155,7 +160,21 @@ int hor=rand()%(TOPE);
 			vec[_presa]->setVisible(0);
 			_visibles--;
 			_ultimo=_presa;
+				if(_intentos>0){
+					_intentos--;
+				}
+			
 		}
+		else if(vec[_presa]->getVisible()==false ||vec[_presa]->estaVivo()==false){
+			_intentos++;
+		}
+	}
+	if(_intentos==INTENTOS){
+		_tiempo= (_tiempo- _tiempoPerdido);
+		_intentos=0;
+	}
+	if(_tiempo<0){
+		_tiempo = 0;
 	}
 }
 
@@ -183,25 +202,7 @@ void Juego::input(){
 }
 
 bool Juego::gameOver(){
-	if(_vivos<=0)
-		_gameOver=true;
-
-	switch(_dificultad){
-	case 1:
-		if(_visibles>=NIVEL_A)
-			_gameOver=true;
-		break;
-	case 2:
-		if(_visibles>=NIVEL_B)
-			_gameOver=true;
-		break;
-	case 3:
-		if(_visibles>=NIVEL_C)
-			_gameOver=true;
-		break;
-	}
-
-	if(_tiempo<=0)
+	if(_vivos<=0||_visibles>=_vivos||_tiempo<=0)
 		_gameOver=true;
 
 	return _gameOver;
@@ -219,10 +220,8 @@ void Juego::draw(){
 	gotoxy(50,1);cout<<"Quedan "<<_vivos<<" Animales";
 	gotoxy(30,1);cout<<"Visibles "<<_visibles;
 
-	if(_tiempo>10){
-		gotoxy(10,1);cout<<"Tiempo "<<_tiempo;
-	}else{
-		gotoxy(10,1);cout<<"Tiempo    ";
-		gotoxy(10,1);cout<<"Tiempo "<<_tiempo;
-	}
+	gotoxy(10,1);cout<<"Tiempo "<<_tiempo<<"   ";
+	
+
+	gotoxy(75,1);cout<<"INTENTOS "<<_intentos;
 }

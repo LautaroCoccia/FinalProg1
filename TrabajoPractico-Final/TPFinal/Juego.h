@@ -30,10 +30,12 @@ class Juego{
 	int _vivos;			// cuantas presas vivas hay
 	int _presa;			// numero de presa a ser atacada
 	int _intentos;		// intentos de atacar
-	int _tiempo;		// tiempo
+	float _tiempo;		// tiempo  LO CAMBIE A FLOAT
 	int _ultimo;		// ultima presa atacada
 	int _visibles;		// cuantas presas estan visibles
 	int _dificultad;	// nivel del juego
+
+	float _tiempoPerdido;
 public:
 	Juego();
 	~Juego();
